@@ -22,11 +22,11 @@ pipeline {
         }
 
         stage('Start Express Server') {
-            steps {
-                sh 'pkill -f "node index.js" || true'
-                sh 'cd Server && nohup node index.js > server.log 2>&1 & disown'
-            }
-        }
+    steps {
+        sh 'pkill -f "node index.js" || true'
+        sh 'cd Server && nohup node index.js > server.log 2>&1 &'
+    }
+}
     }
 
     post {
