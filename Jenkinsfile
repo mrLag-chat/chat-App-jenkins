@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_ENV = 'production'
-    }
-
     stages {
 
         stage('Install Backend Dependencies') {
@@ -27,13 +23,8 @@ pipeline {
 
         stage('Start Express Server') {
             steps {
-                sh '''
-                    pkill -f "node index.js" || true
-                    cd Server
-                    nohup node index.js > server.log 2>&1 &
-                    disown
-                    echo "Server started!"
-                '''
+                sh 'pkill -f "node index.js" || true'
+                sh 'cd Server && nohup node index.js > server.log 2>&1 & disown'
             }
         }
     }
