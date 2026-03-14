@@ -9,19 +9,19 @@ pipeline {
 
         stage('Install Backend Dependencies') {
             steps {
-                sh 'cd Server && npm install'
+                sh 'cd Server && rm -rf node_modules && npm install'
             }
         }
 
         stage('Install Frontend Dependencies') {
             steps {
-                sh 'cd ClientRoot && npm install'
+                sh 'cd ClientRoot && rm -rf node_modules && npm install'
             }
         }
 
         stage('Build React (Vite) App') {
             steps {
-                sh 'cd ClientRoot && npx vite build'
+                sh 'cd ClientRoot && npm run build'
             }
         }
 
@@ -31,6 +31,8 @@ pipeline {
                     pkill -f "node index.js" || true
                     cd Server
                     nohup node index.js > server.log 2>&1 &
+                    disown
+                    echo "Server started!"
                 '''
             }
         }
@@ -45,4 +47,3 @@ pipeline {
         }
     }
 }
-
