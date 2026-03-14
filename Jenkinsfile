@@ -21,18 +21,16 @@ pipeline {
 
         stage('Build React (Vite) App') {
             steps {
-                sh 'cd ClientRoot && npm run build'
+                sh 'cd ClientRoot && npx vite build'
             }
         }
 
-        stage('Restart Express with PM2') {
+        stage('Start Express Server') {
             steps {
                 sh '''
+                    pkill -f "node index.js" || true
                     cd Server
-                    pm2 describe express-app > /dev/null 2>&1 \
-                        && pm2 restart express-app \
-                        || pm2 start index.js --name express-app
-                    pm2 save
+                    nohup node index.js > server.log 2>&1 &
                 '''
             }
         }
@@ -47,3 +45,7 @@ pipeline {
         }
     }
 }
+```
+
+---
+
