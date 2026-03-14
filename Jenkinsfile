@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/mrLag-chat/Chat-Appv1.git'
-            }
-        }
-
         stage('Install Backend Dependencies') {
             steps {
                 sh 'cd Server && npm install'
@@ -28,4 +22,4 @@ pipeline {
         }
 
     }
-} 
+}
