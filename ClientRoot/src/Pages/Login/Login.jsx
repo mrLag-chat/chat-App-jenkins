@@ -48,7 +48,7 @@ export default function Login() {
                 />
               </svg>
             </div>
-            <h1>Welcome Back</h1>
+            <h1>Welcome Back Ra mowa</h1>
             <p>Log in to continue chatting with your friends</p>
           </div>
 
